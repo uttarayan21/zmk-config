@@ -24,7 +24,7 @@
         src = nixpkgs.lib.sourceFilesBySuffices self [".board" ".cmake" ".conf" ".defconfig" ".dts" ".dtsi" ".json" ".keymap" ".overlay" ".shield" ".yml" "_defconfig" "yaml"];
 
         board = "nice_nano_v2";
-        shield = "corne_%PART% nice_view_adapter nice_epaper";
+        shield = "corne_%PART% nice_view_adapter nice_view";
 
         zephyrDepsHash = "sha256-cnRLYv1MQN/j9KEW+vVgCQ7GhPNGr1fc9/akj8OPGQ0=";
 

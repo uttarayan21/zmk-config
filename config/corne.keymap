@@ -61,9 +61,9 @@
 
             bindings = <
 &kp TAB    &kp N1        &kp N2        &kp N3        &kp N4        &kp N5          &kp N6    &kp N7    &kp N8  &kp N9     &kp N0  &studio_unlock
-&none      &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &trans  &trans
+&none      &trans  &trans  &trans  &trans  &trans &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &trans  &trans
 &kp LSHFT  &trans        &trans        &trans        &trans        &trans          &trans    &trans    &trans  &trans     &trans  &trans
-                                       &kp LGUI      &trans        &kp SPACE       &kp RET   &trans    &mo 4
+                                       &mo 3      &trans        &kp SPACE       &kp RET   &trans    &mo 3
             >;
         };
 
@@ -78,22 +78,13 @@
 &kp TAB    &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp BSPC
 &kp LCTRL  &trans    &trans  &trans    &trans    &trans       &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH  &kp GRAVE
 &kp LSHFT  &trans    &trans  &trans    &trans    &trans       &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC  &kp PIPE  &kp TILDE
-                             &kp LGUI  &trans    &kp SPACE    &kp RET    &mo 4      &kp RALT
+                             &kp LGUI  &mo 3    &kp SPACE    &kp RET    &mo 3      &kp RALT
             >;
         };
 
-        layer_3 {
+        bt_layer {
             bindings = <
-&trans  &trans        &trans        &trans      &trans     &trans    &trans  &trans     &trans           &trans         &trans         &trans
-&trans  &kp LEFT_GUI  &kp LEFT_ALT  &kp LSHIFT  &kp LCTRL  &trans    &trans  &kp RCTRL  &kp RIGHT_SHIFT  &kp RIGHT_ALT  &kp RIGHT_GUI  &trans
-&trans  &trans        &trans        &trans      &trans     &trans    &trans  &trans     &trans           &trans         &trans         &trans
-                                    &trans      &trans     &trans    &trans  &trans     &trans
-            >;
-        };
-
-        layer_4 {
-            bindings = <
-&bootloader  &trans  &trans  &trans  &trans  &trans    &bt BT_CLR  &trans  &trans  &trans  &trans  &bootloader
+&bootloader  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &bt BT_CLR  &trans  &trans  &trans  &trans  &bootloader
 &trans  &trans  &trans  &trans  &trans  &trans    &trans      &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans      &trans  &trans  &trans  &trans  &trans
                         &trans  &trans  &trans    &trans      &trans  &trans

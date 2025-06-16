@@ -31,7 +31,7 @@
         name = "korne";
         board = "nice_nano_v2";
         parts = ["dongle" "left" "right"];
-        shield = "korne_%PART% nice_view_adapter nice_view";
+        shield = "korne_%PART% nice_view_adapter nice_epaper";
         extraCmakeFlags = [
           "-DCMAKE_C_FLAGS=-Wno-int-conversion"
         ];

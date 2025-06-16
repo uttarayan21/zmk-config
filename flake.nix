@@ -36,7 +36,7 @@
         inherit src zephyrDepsHash meta;
         name = "corne-dongle";
         board = "nice_nano_v2";
-        shield = "corne_dongle";
+        shield = "corne_%PART% corne_dongle";
       };
       korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;

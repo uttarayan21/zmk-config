@@ -38,6 +38,7 @@
         board = "nice_nano_v2";
         parts = ["left" "right" "dongle"];
         shield = "corne_%PART% nice_view_adapter nice_view";
+        extraCmakeFlags = ["-DCMAKE_C_FLAGS=-Wno-int-conversion"];
       };
       korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;

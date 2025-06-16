@@ -36,7 +36,7 @@
         inherit src zephyrDepsHash meta;
         name = "corne";
         board = "nice_nano_v2";
-        parts = ["dongle"];
+        parts = ["dongle" "left" "right"];
         shield = "corne_%PART% nice_view_adapter nice_view";
         extraCmakeFlags = ["-DCMAKE_C_FLAGS=-Wno-int-conversion"];
       };

@@ -40,6 +40,12 @@
         shield = "corne_%PART% nice_view_adapter nice_view";
         extraCmakeFlags = ["-DCMAKE_C_FLAGS=-Wno-int-conversion"];
       };
+      reset = zmk-nix.legacyPackages.${system}.buildKeyboard {
+        inherit src zephyrDepsHash meta;
+        name = "reset";
+        board = "nice_nano_v2";
+        shield = "settings_reset";
+      };
       korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;
         name = "korne";

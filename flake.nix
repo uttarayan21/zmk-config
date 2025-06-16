@@ -32,11 +32,12 @@
         shield = "corne_%PART% nice_view_adapter nice_view";
         extraCmakeFlags = ["-DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n"];
       };
-      corne-dongle = zmk-nix.legacyPackages.${system}.buildKeyboard {
+      corne-dongle = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;
-        name = "corne-dongle";
+        name = "corne";
         board = "nice_nano_v2";
-        shield = "corne_%PART% corne_dongle";
+        parts = ["left" "right" "dongle"];
+        shield = "corne_%PART% nice_view_adapter nice_view";
       };
       korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;
@@ -44,8 +45,8 @@
         board = "nice_nano_v2";
         shield = "korne_%PART%";
       };
-      # flash = zmk-nix.packages.${system}.flash.override {firmware = corne;};
-      # update = zmk-nix.packages.${system}.update;
+      flash = zmk-nix.packages.${system}.flash.override {firmware = corne;};
+      update = zmk-nix.packages.${system}.update;
     });
 
     devShells = forAllSystems (system: {

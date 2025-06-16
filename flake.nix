@@ -14,7 +14,7 @@
     zmk-nix,
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (nixpkgs.lib.attrNames zmk-nix.packages);
-    zephyrDepsHash = "sha256-XdxMX8inOxrIZhhfMUDMCnqowe/pN3YUY8+o5PN4irk=";
+    zephyrDepsHash = "sha256-ukLu0r9FBg5ixrsxpaMikPjDWeBgTQGl/adChUWvgVg=";
     src = nixpkgs.lib.sourceFilesBySuffices self [".board" ".cmake" ".conf" ".defconfig" ".dts" ".dtsi" ".json" ".keymap" ".overlay" ".shield" ".yml" "_defconfig" "yaml"];
     meta = {
       description = "ZMK firmware";
@@ -25,7 +25,17 @@
     packages = forAllSystems (system: let
       pkgs = import nixpkgs {inherit system;};
     in rec {
-      default = corne;
+      default = korne;
+      korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
+        inherit src zephyrDepsHash meta;
+        name = "korne";
+        board = "nice_nano_v2";
+        parts = ["dongle" "left" "right"];
+        shield = "korne_%PART% nice_view_adapter nice_view";
+        extraCmakeFlags = [
+          "-DCMAKE_C_FLAGS=-Wno-int-conversion"
+        ];
+      };
 
       corne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;
@@ -62,12 +72,6 @@
         name = "reset";
         board = "nice_nano_v2";
         shield = "settings_reset";
-      };
-      korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
-        inherit src zephyrDepsHash meta;
-        name = "korne";
-        board = "nice_nano_v2";
-        shield = "korne_%PART%";
       };
       flash = zmk-nix.packages.${system}.flash.override {firmware = corne;};
       update = zmk-nix.packages.${system}.update;

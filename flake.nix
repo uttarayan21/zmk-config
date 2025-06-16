@@ -14,45 +14,38 @@
     zmk-nix,
   }: let
     forAllSystems = nixpkgs.lib.genAttrs (nixpkgs.lib.attrNames zmk-nix.packages);
+    zephyrDepsHash = "sha256-XdxMX8inOxrIZhhfMUDMCnqowe/pN3YUY8+o5PN4irk=";
+    src = nixpkgs.lib.sourceFilesBySuffices self [".board" ".cmake" ".conf" ".defconfig" ".dts" ".dtsi" ".json" ".keymap" ".overlay" ".shield" ".yml" "_defconfig" "yaml"];
+    meta = {
+      description = "ZMK firmware";
+      license = nixpkgs.lib.licenses.mit;
+      platforms = nixpkgs.lib.platforms.all;
+    };
   in {
     packages = forAllSystems (system: rec {
       default = corne;
 
       corne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
+        inherit src zephyrDepsHash meta;
         name = "corne";
-
-        src = nixpkgs.lib.sourceFilesBySuffices self [".board" ".cmake" ".conf" ".defconfig" ".dts" ".dtsi" ".json" ".keymap" ".overlay" ".shield" ".yml" "_defconfig" "yaml"];
-
         board = "nice_nano_v2";
         shield = "corne_%PART% nice_view_adapter nice_view";
-
-        zephyrDepsHash = "sha256-cnRLYv1MQN/j9KEW+vVgCQ7GhPNGr1fc9/akj8OPGQ0=";
-
-        meta = {
-          description = "ZMK firmware";
-          license = nixpkgs.lib.licenses.mit;
-          platforms = nixpkgs.lib.platforms.all;
-        };
+        extraCmakeFlags = ["-DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n"];
+      };
+      corne-dongle = zmk-nix.legacyPackages.${system}.buildKeyboard {
+        inherit src zephyrDepsHash meta;
+        name = "corne-dongle";
+        board = "nice_nano_v2";
+        shield = "corne_dongle";
       };
       korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
+        inherit src zephyrDepsHash meta;
         name = "korne";
-
-        src = nixpkgs.lib.sourceFilesBySuffices self [".board" ".cmake" ".conf" ".defconfig" ".dts" ".dtsi" ".json" ".keymap" ".overlay" ".shield" ".yml" "_defconfig" "yaml"];
-
         board = "nice_nano_v2";
-        shield = "corne_%PART%";
-
-        zephyrDepsHash = "sha256-cnRLYv1MQN/j9KEW+vVgCQ7GhPNGr1fc9/akj8OPGQ0=";
-
-        meta = {
-          description = "ZMK firmware";
-          license = nixpkgs.lib.licenses.mit;
-          platforms = nixpkgs.lib.platforms.all;
-        };
+        shield = "korne_%PART%";
       };
-
-      flash = zmk-nix.packages.${system}.flash.override {firmware = corne;};
-      update = zmk-nix.packages.${system}.update;
+      # flash = zmk-nix.packages.${system}.flash.override {firmware = corne;};
+      # update = zmk-nix.packages.${system}.update;
     });
 
     devShells = forAllSystems (system: {

@@ -25,7 +25,7 @@
     packages = forAllSystems (system: let
       pkgs = import nixpkgs {inherit system;};
     in rec {
-      default = korne;
+      default = corne;
       korne = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;
         name = "korne";
@@ -41,10 +41,10 @@
         inherit src zephyrDepsHash meta;
         name = "corne";
         board = "nice_nano_v2";
-        parts = ["dongle" "left" "right"];
+        parts = ["left" "right"];
         shield = "corne_%PART% nice_view_adapter nice_view";
         extraCmakeFlags = [
-          "-DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n"
+          # "-DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n"
           "-DCMAKE_C_FLAGS=-Wno-int-conversion"
         ];
       };
@@ -55,10 +55,6 @@
         shield = "corne_dongle";
         extraCmakeFlags = ["-DCMAKE_C_FLAGS=-Wno-int-conversion"];
       };
-      # corne-with-dongle = pkgs.symlinkJoin {
-      #   name = "corne-with-dongle";
-      #   paths = [corne corne-just-dongle];
-      # };
       corne-with-dongle = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
         inherit src zephyrDepsHash meta;
         name = "corne";
